@@ -72,7 +72,10 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Failed to send");
+      if (!res.ok) {
+        const errorBody = await res.json().catch(() => ({}));
+        throw new Error(errorBody?.error || "Failed to send");
+      }
       setSubmitStatus("sent");
       form.reset();
     } catch (error) {
