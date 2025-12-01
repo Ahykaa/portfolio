@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 const navItems = [
@@ -57,6 +57,30 @@ const contactLinks = [
 ];
 
 export default function App() {
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    setSubmitStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Failed to send");
+      setSubmitStatus("sent");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      setSubmitStatus("error");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-neutral-950 text-slate-100">
       <div className="bg-grid" aria-hidden />
@@ -245,12 +269,7 @@ export default function App() {
               </p>
             </div>
 
-            <form
-              className="space-y-4"
-              action="https://formspree.io/f/your-form-id"
-              method="POST"
-            >
-              <input type="hidden" name="_subject" value="Portfolio contact" />
+            <form className="space-y-4" onSubmit={handleSubmit}>
 
               <div className="grid sm:grid-cols-2 gap-3">
                 <Input label="Name" name="name" placeholder="John Doe" required />
@@ -276,8 +295,14 @@ export default function App() {
                 />
               </div>
               <button type="submit" className="button-primary">
-                Submit
+                {submitStatus === "sending" ? "Sending..." : "Submit"}
               </button>
+              {submitStatus === "sent" && (
+                <p className="text-sm text-accent">Thanks! Your message was sent.</p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-sm text-red-300">Something went wrong. Please try again.</p>
+              )}
             </form>
           </section>
         </main>
