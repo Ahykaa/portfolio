@@ -1,382 +1,874 @@
-import React, { useState } from "react";
-import "./App.css";
+import {
+  AppBar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  CssBaseline,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Link,
+  Paper,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
+import ContactMailRoundedIcon from "@mui/icons-material/ContactMailRounded";
+import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 
 const navItems = [
-  { href: "#projects", label: "Work" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "#home", label: "Home", icon: HomeRoundedIcon },
+  { href: "#about-me", label: "About Me", icon: PersonRoundedIcon },
+  { href: "#portfolio", label: "Projects", icon: WorkRoundedIcon },
+  { href: "#contact", label: "Contact Me", icon: ContactMailRoundedIcon },
 ];
 
-const featuredProjects = [
+const experienceItems = [
   {
-    title: "Promotional landing page for our favorite show",
-    tag: "Conceptual Work",
-    description:
-      "Teamed up with a designer to breathe life into a promotional webpage for our beloved show. Delivered a fully responsive design with dynamic content capabilities and a newsletter feature.",
-    year: "2023",
-    role: "Front-end Developer",
-    client: "Adventure Time",
-    liveUrl: "#",
-    githubUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    role: "Junior Full-Stack Developer",
+    company: "Linnea Systems",
+    period: "Aug 2024 - Feb 2026",
+    details:
+      "Developed responsive web interfaces with React and built backend features in Laravel for portfolio and small business products.",
   },
   {
-    title: "News platform redesign",
-    tag: "Client Work",
-    description:
-      "Redesigned a news portal to modernize typography, elevate readability, and improve the way stories surface on mobile devices.",
-    year: "2022",
-    role: "Front-end Developer",
-    client: "World News",
-    liveUrl: "#",
-    githubUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "E-commerce product page",
-    tag: "Challenge",
-    description:
-      "Crafted a product experience featuring a lightbox gallery, variant controls, and clean cart interactions to highlight product photography.",
-    year: "2022",
-    role: "Front-end Developer",
-    client: "SneakPeak",
-    liveUrl: "#",
-    githubUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
+    role: "Web Development Intern and Harware Technician",
+    company: "PC Bee Davao",
+    period: "2023 - 2024",
+    details:
+      "Maintained production websites, fixed UI issues, and improved accessibility and mobile responsiveness.",
   },
 ];
 
-const contactLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com", icon: "in" },
-  { label: "GitHub", href: "https://github.com", icon: "gh" },
-  { label: "Email", href: "mailto:airicaptn24@gmail.com", icon: "mail" },
-  { label: "Instagram", href: "https://www.instagram.com", icon: "ig" },
+const techStackItems = [
+  { label: "PHP", iconUrl: "https://cdn.simpleicons.org/php/1f2328" },
+  {
+    label: "JavaScript",
+    iconUrl: "https://cdn.simpleicons.org/javascript/1f2328",
+  },
+  { label: "Python", iconUrl: "https://cdn.simpleicons.org/python/1f2328" },
+  { label: "React.js", iconUrl: "https://cdn.simpleicons.org/react/1f2328" },
+  { label: "Material UI", iconUrl: "https://cdn.simpleicons.org/mui/1f2328" },
+  { label: "HTML5", iconUrl: "https://cdn.simpleicons.org/html5/1f2328" },
+  { label: "CSS3", iconUrl: "https://cdn.simpleicons.org/css/1f2328" },
+  {
+    label: "Bootstrap",
+    iconUrl: "https://cdn.simpleicons.org/bootstrap/1f2328",
+  },
+  { label: "Laravel", iconUrl: "https://cdn.simpleicons.org/laravel/1f2328" },
+  { label: "MySQL", iconUrl: "https://cdn.simpleicons.org/mysql/1f2328" },
+  { label: "DBeaver", iconUrl: "https://cdn.simpleicons.org/dbeaver/1f2328" },
+  { label: "Git", iconUrl: "https://cdn.simpleicons.org/git/1f2328" },
+  { label: "GitHub", iconUrl: "https://cdn.simpleicons.org/github/1f2328" },
+  {
+    label: "Bitbucket",
+    iconUrl: "https://cdn.simpleicons.org/bitbucket/1f2328",
+  },
+  { label: "Docker", iconUrl: "https://cdn.simpleicons.org/docker/1f2328" },
+  { label: "Linux Admin", iconUrl: "https://cdn.simpleicons.org/linux/1f2328" },
 ];
+
+const projects = [
+  {
+    title: "Ordering System",
+    category: "Web Development",
+    images: [
+      `${import.meta.env.BASE_URL}pcbee/pcbee-1.png`,
+      `${import.meta.env.BASE_URL}pcbee/pcbee-2.png`,
+      `${import.meta.env.BASE_URL}pcbee/pcbee-3.png`,
+      `${import.meta.env.BASE_URL}pcbee/pcbee-4.png`,
+      `${import.meta.env.BASE_URL}pcbee/pcbee-5.png`,
+      `${import.meta.env.BASE_URL}pcbee/pcbee-6.png`,
+    ],
+    summary:
+      "The PC Bee Ordering Parts System is a web-based application that helps staff and administrators manage and track laptop parts orders from suppliers in one centralized platform. It allows users to create, update, and monitor orders with role-based access, improving order tracking efficiency and reducing manual follow-ups. The system is built using Laravel (PHP), MySQL, and a JavaScript frontend with Node.js/Yarn, with optional Docker support for deployment.",
+  },
+  {
+    title: "Branding Landing Page",
+    category: "UI/UX",
+    images: [
+      `${import.meta.env.BASE_URL}portfolio/branding-1.jpg`,
+      `${import.meta.env.BASE_URL}portfolio/app-1.jpg`,
+      `${import.meta.env.BASE_URL}portfolio/product-1.jpg`,
+    ],
+    summary:
+      "Marketing page with consistent visual language, clear sections, and strong CTA flow.",
+  },
+  {
+    title: "Product Showcase",
+    category: "Frontend",
+    images: [
+      `${import.meta.env.BASE_URL}portfolio/product-1.jpg`,
+      `${import.meta.env.BASE_URL}portfolio/branding-1.jpg`,
+      `${import.meta.env.BASE_URL}portfolio/app-1.jpg`,
+    ],
+    summary:
+      "Product-first interface with image-led storytelling and polished, mobile-ready layouts.",
+  },
+];
+
+const truncateText = (text, maxLength) =>
+  text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: { main: "#e53935" },
+    background: { default: "#f3f7fb", paper: "#ffffff" },
+    text: { primary: "#272829", secondary: "#45505b" },
+  },
+  shape: { borderRadius: 10 },
+  typography: {
+    fontFamily: '"Poppins", "Roboto", sans-serif',
+    h1: { fontFamily: '"Raleway", sans-serif', fontWeight: 700 },
+    h2: { fontFamily: '"Raleway", sans-serif', fontWeight: 700 },
+    h3: { fontFamily: '"Raleway", sans-serif', fontWeight: 700 },
+  },
+});
+
+function SectionTitle({ title, description }) {
+  return (
+    <Box sx={{ textAlign: "center", mb: 4 }}>
+      <Typography
+        variant="h3"
+        sx={{ fontSize: { xs: "1.8rem", md: "2rem" }, color: "text.primary" }}
+      >
+        {title}
+      </Typography>
+      <Box
+        sx={{
+          width: 58,
+          height: 3,
+          bgcolor: "primary.main",
+          mx: "auto",
+          my: 1.6,
+          borderRadius: 99,
+        }}
+      />
+      <Typography sx={{ color: "text.secondary", maxWidth: 760, mx: "auto" }}>
+        {description}
+      </Typography>
+    </Box>
+  );
+}
 
 export default function App() {
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
+  const heroPhotoUrl = `${import.meta.env.BASE_URL}aic.png`;
+  const aboutPhotoUrl = `${import.meta.env.BASE_URL}aic.jpg`;
+  const techStackScrollRef = useRef(null);
+  const [activeProject, setActiveProject] = useState(null);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
+  const [projectImageIndexes, setProjectImageIndexes] = useState(
+    projects.reduce((acc, project) => {
+      if (project.images?.length) acc[project.title] = 0;
+      return acc;
+    }, {}),
+  );
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-
-    setSubmitStatus("sending");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setProjectImageIndexes((prev) => {
+        const next = { ...prev };
+        projects.forEach((project) => {
+          if (project.images?.length > 1) {
+            next[project.title] =
+              ((prev[project.title] ?? 0) + 1) % project.images.length;
+          }
+        });
+        return next;
       });
-      if (!res.ok) {
-        const errorBody = await res.json().catch(() => ({}));
-        throw new Error(errorBody?.error || "Failed to send");
-      }
-      setSubmitStatus("sent");
-      form.reset();
-    } catch (error) {
-      console.error(error);
-      setSubmitStatus("error");
-    }
-  }
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!activeProject || !activeProject.images?.length) return undefined;
+    const modalTimer = window.setInterval(() => {
+      setModalImageIndex((prev) => (prev + 1) % activeProject.images.length);
+    }, 2500);
+    return () => window.clearInterval(modalTimer);
+  }, [activeProject]);
+
+  const handleTechStackWheel = (event) => {
+    const container = techStackScrollRef.current;
+    if (!container) return;
+    event.preventDefault();
+    event.stopPropagation();
+    container.scrollLeft += event.deltaY + event.deltaX;
+  };
+
+  const handleOpenProjectModal = (project) => {
+    setActiveProject(project);
+    setModalImageIndex(projectImageIndexes[project.title] ?? 0);
+  };
+
+  const handleCloseProjectModal = () => {
+    setActiveProject(null);
+  };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-slate-100">
-      <div className="bg-grid" aria-hidden />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ bgcolor: "background.default" }}>
+        <Box
+          sx={{
+            position: "fixed",
+            right: 22,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 20,
+            display: { xs: "none", lg: "block" },
+          }}
+        >
+          <Paper
+            elevation={0}
+            sx={{
+              p: 0,
+              bgcolor: "transparent",
+              border: "none",
+              boxShadow: "none",
+            }}
+          >
+            <Stack spacing={0.8} sx={{ alignItems: "flex-end" }}>
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    underline="none"
+                    aria-label={item.label}
+                    sx={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 99,
+                      display: "inline-flex",
+                      flexDirection: "row-reverse",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                      alignSelf: "flex-end",
+                      gap: 1,
+                      px: 1.45,
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      color: "#45505b",
+                      bgcolor: "#f2f3f5",
+                      transition: "all 220ms ease",
+                      "& .nav-label": {
+                        maxWidth: 0,
+                        opacity: 0,
+                        fontSize: "0.98rem",
+                        fontWeight: 500,
+                        mr: 0,
+                        transition: "all 220ms ease",
+                      },
+                      "&:hover": {
+                        width: 158,
+                        bgcolor: "primary.main",
+                        color: "white",
+                      },
+                      "&:hover .nav-label": {
+                        maxWidth: 92,
+                        opacity: 1,
+                        mr: 1,
+                      },
+                    }}
+                  >
+                    <Icon fontSize="small" />
+                    <Box component="span" className="nav-label">
+                      {item.label}
+                    </Box>
+                  </Link>
+                );
+              })}
+            </Stack>
+          </Paper>
+        </Box>
 
-      <div className="max-w-6xl mx-auto px-6 pb-16">
-        <header className="flex items-center justify-between py-8">
-          <a href="#hero" className="brand">
-            Airica S. Patiño
-          </a>
-          <nav className="hidden md:flex items-center gap-8 text-sm tracking-wide uppercase text-slate-200">
+        <AppBar
+          position="sticky"
+          elevation={0}
+          sx={{
+            bgcolor: "rgba(255,255,255,0.92)",
+            borderBottom: "1px solid rgba(39,40,41,0.1)",
+            display: { xs: "block", lg: "none" },
+          }}
+        >
+          <Toolbar sx={{ gap: 2, overflowX: "auto", py: 0.5 }}>
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
-                className="nav-link"
+                underline="none"
+                color="text.secondary"
+                sx={{ fontWeight: 600 }}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-          </nav>
-        </header>
+          </Toolbar>
+        </AppBar>
 
-        <main className="space-y-20">
-          <section
-            id="hero"
-            className="grid lg:grid-cols-2 gap-12 items-center rounded-[28px] border border-white/5 bg-[rgba(9,12,12,0.9)] p-10 shadow-[0_35px_80px_-45px_rgba(0,0,0,0.85)]"
+        <Box
+          id="home"
+          component="section"
+          sx={{
+            minHeight: "100vh",
+            display: "grid",
+            alignItems: "center",
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url(${heroPhotoUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "right center",
+          }}
+        >
+          <Container
+            maxWidth="lg"
+            sx={{ py: { xs: 8, md: 12 }, pl: { lg: 10 } }}
           >
-            <div className="space-y-8">
-              <p className="text-accent text-sm uppercase tracking-[0.3em]">
-                Portfolio
-              </p>
-              <div>
-                <p className="text-5xl sm:text-6xl font-display leading-none">
-                  Hi, I am
-                </p>
-                <h1 className="text-6xl sm:text-7xl md:text-8xl font-display leading-none">
-                  Airica S. Patiño
-                </h1>
-              </div>
-              <p className="max-w-xl text-lg sm:text-xl text-slate-300 leading-relaxed">
-                A Philippine-based full-stack web developer passionate about
-                building accessible and user-friendly websites.
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="#contact"
-                  className="button-primary"
-                >
-                  Contact Me
-                </a>
-                <div className="flex items-center gap-2 text-slate-300 text-sm">
-                  <SocialIcon type="in" />
-                  <SocialIcon type="gh" />
-                  <SocialIcon type="mail" />
-                </div>
-              </div>
-            </div>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: "2.2rem", md: "3.7rem" },
+                color: "#130f0fff",
+              }}
+            >
+              Airica S. Patino
+            </Typography>
+            <Typography
+              sx={{
+                mt: 1.2,
+                fontSize: { xs: "1.1rem", md: "1.55rem" },
+                color: "#130f0fff",
+              }}
+            >
+              Junior Full-Stack Web Developer
+            </Typography>
+            <Typography
+              sx={{
+                mt: 2,
+                maxWidth: 700,
+                color: "text.secondary",
+                lineHeight: 1.8,
+              }}
+            >
+              Building practical and user-friendly web experiences with a strong
+              focus on clean UI, performance, and maintainable frontend-backend
+              architecture.
+            </Typography>
+            <Stack direction="row" spacing={1} sx={{ mt: 2.6 }}>
+              <IconButton
+                component="a"
+                href="mailto:patino.airica@gmail.com"
+                sx={{ color: "#45505b" }}
+              >
+                <MailOutlineRoundedIcon />
+              </IconButton>
+              <IconButton component="a" href="#" sx={{ color: "#45505b" }}>
+                <LinkedInIcon />
+              </IconButton>
+              <IconButton component="a" href="#" sx={{ color: "#45505b" }}>
+                <GitHubIcon />
+              </IconButton>
+            </Stack>
+          </Container>
+        </Box>
 
-            <div className="relative flex justify-center items-center">
-                <img
-                  src="/aic.jpg"
-                  alt="Airica in graduation gown"
-                  className="h-full w-full object-cover rounded-[22px]"
+        <Box
+          component="section"
+          id="about-me"
+          sx={{
+            pt: { xs: 6, md: 8 },
+            pb: { xs: 7, md: 10 },
+            backgroundImage:
+              "linear-gradient(180deg, #f8fbff 0%, #eef4ff 55%, #e8f0ff 100%)",
+          }}
+        >
+          <Container maxWidth="lg" sx={{ pl: { lg: 10 } }}>
+            <SectionTitle title="About Me" />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: "flex-start",
+                gap: { xs: 3, md: 4 },
+              }}
+            >
+              <Box sx={{ flex: "0 0 300px" }}>
+                <Box
+                  component="img"
+                  src={aboutPhotoUrl}
+                  alt="Profile"
+                  sx={{
+                    width: "100%",
+                    maxWidth: 300,
+                    borderRadius: 2,
+                    objectFit: "cover",
+                    display: "block",
+                  }}
                 />
-
-            </div>
-          </section>
-
-          <section id="projects" className="space-y-8">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
-              <div>
-                <p className="eyebrow">Featured Projects</p>
-                <h2 className="section-title">Selected work</h2>
-                <p className="text-slate-300 max-w-2xl">
-                  Here are some of the selected projects that showcase my passion for
-                  front-end development.
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-10">
-              {featuredProjects.map((project) => (
-                <article
-                  key={project.title}
-                  className="project-row"
+              </Box>
+              <Box
+                sx={{
+                  flex: 1,
+                  minWidth: 0,
+                  maxWidth: 720,
+                  pt: { md: 2 },
+                  mt: 5,
+                }}
+              >
+                <Typography variant="h5" sx={{ color: "#130f0fff" }}>
+                  I'm Airica Patino a Web Developer
+                </Typography>
+                <Typography
+                  sx={{
+                    mt: 1.5,
+                    color: "text.secondary",
+                    lineHeight: 1.8,
+                    textAlign: "left",
+                  }}
                 >
-                  <div className="project-image">
-                    <span className="project-pill">{project.tag}</span>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="h-full w-full object-cover rounded-[18px]"
-                    />
-                  </div>
+                  I’m a full-stack developer who enjoys building reliable web
+                  applications that solve real-world problems. I focus on clean
+                  code, smooth data flow, and creating user-friendly experiences
+                  across both frontend and backend.
+                </Typography>
+                <Grid container spacing={2} sx={{ mt: 2 }}>
+                  <Grid item xs={12} sm={6}>
+                    <Typography sx={{ color: "text.secondary" }}>
+                      <strong>Email:</strong> patino.airica@gmail.com
+                    </Typography>
+                    <Typography sx={{ color: "text.secondary", mt: 1 }}>
+                      <strong>Location:</strong> Philippines
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography sx={{ color: "text.secondary" }}>
+                      <strong>Status:</strong> Available for work
+                    </Typography>
+                    <Typography sx={{ color: "text.secondary", mt: 1 }}>
+                      <strong>Focus:</strong> React + Laravel
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Button
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="contained"
+                  startIcon={<DownloadRoundedIcon />}
+                  sx={{
+                    mt: 2.5,
+                    textTransform: "none",
+                    borderRadius: 99,
+                    px: 2.5,
+                  }}
+                >
+                  Download Resume
+                </Button>
+              </Box>
+            </Box>
 
-                  <div className="space-y-4">
-                    <h3 className="text-2xl md:text-3xl font-semibold text-white">
-                      {project.title}
-                    </h3>
-                    <p className="text-slate-300 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3 text-sm border-t border-b border-white/5 py-4">
-                      <div>
-                        <p className="text-slate-500">Project info</p>
-                        <p className="text-white">{project.client}</p>
-                      </div>
-                      <div>
-                        <p className="text-slate-500">Year</p>
-                        <p className="text-white">{project.year}</p>
-                      </div>
-                      <div>
-                        <p className="text-slate-500">Role</p>
-                        <p className="text-white">{project.role}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-3 text-sm font-semibold text-accent">
-                      <a href={project.liveUrl} className="underline underline-offset-4">
-                        Live demo ↗
-                      </a>
-                      <a href={project.githubUrl} className="underline underline-offset-4">
-                        See on GitHub ↗
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section
-            id="about"
-            className="grid lg:grid-cols-[0.9fr,1.1fr] gap-8 border-t border-b border-white/5 py-12"
-          >
-            <div className="space-y-2">
-              <p className="eyebrow">About me</p>
-              <h2 className="section-title">Hi! I&apos;m a Junior Full-Stack Developer from the Philippines.</h2>
-            </div>
-            <div className="space-y-4 text-slate-300 leading-relaxed">
-              <p>
-                Hi! I&apos;m a Junior Full-Stack Developer from the Philippines. I earned my
-                Bachelor&apos;s degree in Information Technology and discovered a real love
-                for creating web apps. My main stack is Laravel for backend and React.js for
-                frontend — I enjoy combining the power of both to bring ideas to life.
-              </p>
-              <p>
-                I&apos;m constantly learning, experimenting, and improving my craft. Whether
-                it&apos;s building new features or solving tricky bugs, I&apos;m always excited
-                to grow as a developer.
-              </p>
-              <a href="#contact" className="underline underline-offset-4 text-accent font-semibold">
-                More about me ↗
-              </a>
-            </div>
-          </section>
-
-          <section
-            id="contact"
-          >
-            <div className="space-y-4">
-              <p className="eyebrow">Let&apos;s connect</p>
-              <h2 className="section-title">Say hello at patino.airica@gmail.com</h2>
-              <p className="text-slate-300">
-                For more info, here&apos;s my{" "}
-                <a href="/resume.pdf" className="underline underline-offset-4 text-accent font-semibold">
-                  resume
-                </a>
-                .
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {contactLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="icon-button"
-                    aria-label={link.label}
+            <Grid container spacing={3.2} sx={{ mt: 3.2 }}>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h6" sx={{ mb: 1.5 }}>
+                  Resume Summary
+                </Typography>
+                {experienceItems.map((item) => (
+                  <Box
+                    key={item.role}
+                    sx={{
+                      borderLeft: "2px solid #e53935",
+                      pl: 2,
+                      pb: 2.2,
+                      mb: 1.2,
+                    }}
                   >
-                    <SocialIcon type={link.icon} />
-                  </a>
+                    <Typography sx={{ fontWeight: 700, color: "#2a2e33" }}>
+                      {item.role}
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: "0.9rem", color: "#5f6d7a", mb: 0.6 }}
+                    >
+                      {item.period} | {item.company}
+                    </Typography>
+                    <Typography sx={{ color: "text.secondary" }}>
+                      {item.details}
+                    </Typography>
+                  </Box>
                 ))}
-              </div>
-              <p className="text-xs text-slate-500 pt-6">
-                © 2024 Airica S. Patiño
-              </p>
-            </div>
+              </Grid>
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h6" sx={{ mb: 1.5 }}>
+                  Tech Stack
+                </Typography>
+                <Box
+                  ref={techStackScrollRef}
+                  onWheel={handleTechStackWheel}
+                  sx={{
+                    display: "flex",
+                    gap: 1.3,
+                    overflowX: "auto",
+                    overflowY: "hidden",
+                    overscrollBehavior: "contain",
+                    pb: 1,
+                    scrollBehavior: "smooth",
+                    "&::-webkit-scrollbar": { height: 8 },
+                    "&::-webkit-scrollbar-thumb": {
+                      backgroundColor: "rgba(39,40,41,0.25)",
+                      borderRadius: 99,
+                    },
+                  }}
+                >
+                  {techStackItems.map((item) => (
+                    <Paper
+                      key={item.label}
+                      elevation={0}
+                      sx={{
+                        minWidth: 108,
+                        flex: "0 0 auto",
+                        px: 1,
+                        py: 1.2,
+                        borderRadius: 2,
+                        border: "none",
+                        boxShadow: "none",
+                        bgcolor: "transparent",
+                        textAlign: "center",
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src={item.iconUrl}
+                        alt={item.label}
+                        loading="lazy"
+                        sx={{
+                          width: 30,
+                          height: 30,
+                          objectFit: "contain",
+                          display: "block",
+                          mx: "auto",
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          mt: 0.6,
+                          fontSize: "0.72rem",
+                          letterSpacing: "0.06em",
+                          fontWeight: 700,
+                          textAlign: "center",
+                        }}
+                      >
+                        {item.label.toUpperCase()}
+                      </Typography>
+                    </Paper>
+                  ))}
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
 
-              <div className="grid sm:grid-cols-2 gap-3">
-                <Input label="Name" name="name" placeholder="John Doe" required />
-                <Input
-                  label="Email"
-                  name="email"
-                  type="email"
-                  placeholder="email@example.com"
-                  required
-                />
-              </div>
-              <Input label="Subject" name="subject" placeholder="Let’s collaborate" />
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-white" htmlFor="message">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  className="input-field min-h-[160px]"
-                  placeholder="Tell me about the project or role you have in mind."
-                  required
-                />
-              </div>
-              <button type="submit" className="button-primary">
-                {submitStatus === "sending" ? "Sending..." : "Submit"}
-              </button>
-              {submitStatus === "sent" && (
-                <p className="text-sm text-accent">Thanks! Your message was sent.</p>
-              )}
-              {submitStatus === "error" && (
-                <p className="text-sm text-red-300">Something went wrong. Please try again.</p>
-              )}
-            </form>
-          </section>
-        </main>
-      </div>
-    </div>
-  );
-}
+        <Box
+          component="section"
+          id="portfolio"
+          sx={{
+            py: { xs: 7, md: 10 },
+            minHeight: { xs: "106vh", md: "108vh" },
+            backgroundImage:
+              "linear-gradient(180deg, #f7fbff 0%, #eaf3ff 52%, #dfeeff 100%)",
+          }}
+        >
+          <Container maxWidth="lg" sx={{ pl: { lg: 10 } }}>
+            <Box sx={{ textAlign: "center", mb: 4.5 }}>
+              <Typography
+                variant="h3"
+                sx={{
+                  fontSize: { xs: "1.95rem", md: "2.5rem" },
+                  color: "#111827",
+                  fontFamily: '"Raleway", sans-serif',
+                }}
+              >
+                Project
+              </Typography>
+              <Box
+                sx={{
+                  width: 58,
+                  height: 3,
+                  bgcolor: "primary.main",
+                  mx: "auto",
+                  my: 1.6,
+                  borderRadius: 99,
+                }}
+              />
+              <Typography
+                sx={{
+                  mt: 1.3,
+                  color: "#111827",
+                  maxWidth: 760,
+                  mx: "auto",
+                }}
+              >
+                Selected projects showcasing practical web solutions, UI
+                quality, and maintainable architecture.
+              </Typography>
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{
+                  mt: 2.6,
+                  mx: "auto",
+                  p: 0.7,
+                  width: "fit-content",
+                  borderRadius: 99,
+                  bgcolor: "white",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    px: 2.5,
+                    py: 0.7,
+                    borderRadius: 99,
+                    bgcolor: "#e53935",
+                    color: "white",
+                    fontWeight: 600,
+                  }}
+                >
+                  Web Development
+                </Box>
+                <Box
+                  sx={{
+                    px: 2.5,
+                    py: 0.7,
+                    borderRadius: 99,
+                    color: "#e53935",
+                    fontWeight: 600,
+                  }}
+                >
+                  UI/UX
+                </Box>
+                <Box
+                  sx={{
+                    px: 2.5,
+                    py: 0.7,
+                    borderRadius: 99,
+                    color: "#e53935",
+                    fontWeight: 600,
+                  }}
+                >
+                  Frontend
+                </Box>
+              </Stack>
+            </Box>
 
-function SocialIcon({ type }) {
-  if (type === "in") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5 fill-current"
-      >
-        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.11h4.56V24H.22zM8.24 8.11h4.37v2.17h.06c.61-1.15 2.1-2.36 4.33-2.36 4.63 0 5.49 3.05 5.49 7.02V24h-4.76v-6.59c0-1.57-.03-3.6-2.19-3.6-2.19 0-2.53 1.71-2.53 3.49V24H8.24z" />
-      </svg>
-    );
-  }
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2.5,
+                overflowX: "auto",
+                overflowY: "hidden",
+                pb: 1.2,
+                scrollBehavior: "smooth",
+                "&::-webkit-scrollbar": { height: 8 },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgba(255,255,255,0.35)",
+                  borderRadius: 99,
+                },
+              }}
+            >
+              {projects.map((project) => (
+                <Card
+                  key={project.title}
+                  onClick={() => handleOpenProjectModal(project)}
+                  sx={{
+                    width: { xs: 280, md: "calc((100% - 40px) / 3)" },
+                    minWidth: { xs: 280, md: "calc((100% - 40px) / 3)" },
+                    flex: "0 0 auto",
+                    borderRadius: 3,
+                    boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
+                    cursor: "pointer",
+                    transition: "transform 180ms ease",
+                    "&:hover": { transform: "translateY(-4px)" },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={
+                      project.images?.[projectImageIndexes[project.title] ?? 0]
+                    }
+                    alt={project.title}
+                    sx={{ width: "100%", height: 210, objectFit: "cover" }}
+                  />
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontSize: "1.08rem" }}>
+                      {project.title}
+                    </Typography>
+                    <Typography
+                      sx={{ mt: 0.8, color: "text.secondary", lineHeight: 1.7 }}
+                    >
+                      {truncateText(project.summary, 60)}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        mt: 1.1,
+                        fontSize: "0.78rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.08em",
+                        color: "#111827",
+                      }}
+                    >
+                      {project.category.toUpperCase()}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Box>
+          </Container>
+        </Box>
 
-  if (type === "gh") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5 fill-current"
-      >
-        <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.79 8.2 11.38.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.07-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.33-1.78-1.33-1.78-1.09-.74.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.77-1.61-2.67-.3-5.48-1.34-5.48-5.96 0-1.32.47-2.4 1.24-3.25-.12-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.24a11.4 11.4 0 0 1 6 0c2.28-1.56 3.29-1.24 3.29-1.24.66 1.64.24 2.86.12 3.16.78.85 1.24 1.93 1.24 3.25 0 4.64-2.81 5.66-5.49 5.96.43.37.82 1.1.82 2.22 0 1.6-.02 2.88-.02 3.28 0 .32.21.7.82.58A12 12 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z" />
-      </svg>
-    );
-  }
+        <Dialog
+          open={Boolean(activeProject)}
+          onClose={handleCloseProjectModal}
+          fullWidth
+          maxWidth="md"
+        >
+          {activeProject && (
+            <>
+              <DialogTitle>
+                <Stack direction="row" spacing={1.2} alignItems="center">
+                  <Box component="span" sx={{ fontWeight: 700 }}>
+                    {activeProject.title}
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{
+                      px: 1.2,
+                      py: 0.25,
+                      borderRadius: 99,
+                      fontSize: "0.72rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      bgcolor: "#e53935",
+                      color: "white",
+                    }}
+                  >
+                    {activeProject.category.toUpperCase()}
+                  </Box>
+                </Stack>
+              </DialogTitle>
+              <DialogContent sx={{ pt: 1 }}>
+                <Box sx={{ position: "relative" }}>
+                  <Box
+                    component="img"
+                    src={activeProject.images[modalImageIndex]}
+                    alt={activeProject.title}
+                    sx={{
+                      width: "100%",
+                      height: { xs: 240, md: 420 },
+                      objectFit: "cover",
+                      borderRadius: 2,
+                    }}
+                  />
+                </Box>
+                {activeProject.images.length > 1 && (
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    justifyContent="center"
+                    sx={{ mt: 1.2 }}
+                  >
+                    {activeProject.images.map((_, index) => (
+                      <Box
+                        key={index}
+                        component="button"
+                        type="button"
+                        aria-label={`Go to image ${index + 1}`}
+                        onClick={() => setModalImageIndex(index)}
+                        sx={{
+                          width: 9,
+                          height: 9,
+                          p: 0,
+                          border: "none",
+                          borderRadius: "50%",
+                          cursor: "pointer",
+                          bgcolor:
+                            index === modalImageIndex
+                              ? "#e53935"
+                              : "rgba(39,40,41,0.28)",
+                        }}
+                      />
+                    ))}
+                  </Stack>
+                )}
+                <Typography
+                  sx={{ mt: 2, color: "text.secondary", lineHeight: 1.75 }}
+                >
+                  {activeProject.summary}
+                </Typography>
 
-  if (type === "mail") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5 fill-current"
-      >
-        <path d="M2 5c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h20c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1H2zm0-2h20c1.66 0 3 1.34 3 3v12c0 1.66-1.34 3-3 3H2c-1.66 0-3-1.34-3-3V6c0-1.66 1.34-3 3-3zm2.5 6.13 7.5 4.6 7.5-4.6 1.04 1.7-8.54 5.24-8.54-5.24 1.04-1.7z" />
-      </svg>
-    );
-  }
+              </DialogContent>
+            </>
+          )}
+        </Dialog>
 
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5 fill-current"
-    >
-      <path d="M12 2.2c2.12 0 2.38.01 3.22.05.83.04 1.39.17 1.87.35.51.2.94.47 1.37.9.43.43.7.86.9 1.37.18.48.31 1.04.35 1.87.04.84.05 1.1.05 3.22s-.01 2.38-.05 3.22c-.04.83-.17 1.39-.35 1.87-.2.51-.47.94-.9 1.37-.43.43-.86.7-1.37.9-.48.18-1.04.31-1.87.35-.84.04-1.1.05-3.22.05s-2.38-.01-3.22-.05c-.83-.04-1.39-.17-1.87-.35a3.53 3.53 0 0 1-1.37-.9 3.53 3.53 0 0 1-.9-1.37c-.18-.48-.31-1.04-.35-1.87-.04-.84-.05-1.1-.05-3.22s.01-2.38.05-3.22c.04-.83.17-1.39.35-1.87.2-.51.47-.94.9-1.37.43-.43.86-.7 1.37-.9.48-.18 1.04-.31 1.87-.35.84-.04 1.1-.05 3.22-.05zm0-2.2C9.84 0 9.54 0 8.7.05 7.86.09 7.21.23 6.62.45c-.62.23-1.16.54-1.69 1.07-.53.53-.84 1.07-1.07 1.69-.22.59-.36 1.24-.4 2.08C3.41 6.13 3.4 6.43 3.4 8.6v6.8c0 2.17.01 2.47.05 3.32.04.84.18 1.49.4 2.08.23.62.54 1.16 1.07 1.69.53.53 1.07.84 1.69 1.07.59.22 1.24.36 2.08.4.84.04 1.14.05 3.31.05s2.47-.01 3.32-.05c.84-.04 1.49-.18 2.08-.4.62-.23 1.16-.54 1.69-1.07.53-.53.84-1.07 1.07-1.69.22-.59.36-1.24.4-2.08.04-.84.05-1.14.05-3.31V8.6c0-2.17-.01-2.47-.05-3.32-.04-.84-.18-1.49-.4-2.08-.23-.62-.54-1.16-1.07-1.69-.53-.53-1.07-.84-1.69-1.07-.59-.22-1.24-.36-2.08-.4C14.47.01 14.17 0 12 0z" />
-    </svg>
-  );
-}
-
-function Input({ label, placeholder, name, type = "text", required }) {
-  const inputId = name || (label ? label.replace(/\s+/g, "-").toLowerCase() : "input");
-  return (
-    <div className="space-y-2">
-      <label className="text-sm font-semibold text-white" htmlFor={inputId}>
-        {label}
-      </label>
-      <input
-        id={inputId}
-        className="input-field"
-        placeholder={placeholder}
-        name={name || inputId}
-        type={type}
-        required={Boolean(required)}
-      />
-    </div>
+        <Box
+          component="section"
+          id="contact"
+          sx={{
+            py: { xs: 7, md: 10 },
+            backgroundImage:
+              "linear-gradient(180deg, #f7fbff 0%, #edf5ff 55%, #e7f0ff 100%)",
+          }}
+        >
+          <Container maxWidth="lg" sx={{ pl: { lg: 10 } }}>
+            <SectionTitle
+              title="Contact Me"
+              description="Let us work together on your next web project."
+            />
+            <Grid container spacing={2.2}>
+              <Grid item xs={12} md={4}>
+                <Paper sx={{ p: 2.2, height: "100%" }}>
+                  <Typography sx={{ fontWeight: 700 }}>Email</Typography>
+                  <Typography sx={{ mt: 0.7, color: "text.secondary" }}>
+                    patino.airica@gmail.com
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Paper sx={{ p: 2.2, height: "100%" }}>
+                  <Typography sx={{ fontWeight: 700 }}>LinkedIn</Typography>
+                  <Typography sx={{ mt: 0.7, color: "text.secondary" }}>
+                    linkedin.com/in/your-profile
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Paper sx={{ p: 2.2, height: "100%" }}>
+                  <Typography sx={{ fontWeight: 700 }}>GitHub</Typography>
+                  <Typography sx={{ mt: 0.7, color: "text.secondary" }}>
+                    github.com/your-username
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
