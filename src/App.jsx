@@ -227,11 +227,11 @@ export default function App() {
         <Box
           sx={{
             position: "fixed",
-            right: 22,
-            top: "50%",
+            right: { xs: 12, md: 18, lg: 22 },
+            top: { xs: "42%", md: "50%" },
             transform: "translateY(-50%)",
             zIndex: 20,
-            display: { xs: "none", lg: "block" },
+            display: { xs: "block", lg: "block" },
           }}
         >
           <Paper
@@ -253,8 +253,8 @@ export default function App() {
                     underline="none"
                     aria-label={item.label}
                     sx={{
-                      width: 44,
-                      height: 44,
+                      width: { xs: 42, lg: 44 },
+                      height: { xs: 42, lg: 44 },
                       borderRadius: 99,
                       display: "inline-flex",
                       flexDirection: "row-reverse",
@@ -277,14 +277,14 @@ export default function App() {
                         transition: "all 220ms ease",
                       },
                       "&:hover": {
-                        width: 158,
-                        bgcolor: "primary.main",
-                        color: "white",
+                        width: { lg: 158 },
+                        bgcolor: { lg: "primary.main" },
+                        color: { lg: "white" },
                       },
                       "&:hover .nav-label": {
-                        maxWidth: 92,
-                        opacity: 1,
-                        mr: 1,
+                        maxWidth: { lg: 92 },
+                        opacity: { lg: 1 },
+                        mr: { lg: 1 },
                       },
                     }}
                   >
@@ -305,7 +305,7 @@ export default function App() {
           sx={{
             bgcolor: "rgba(255,255,255,0.92)",
             borderBottom: "1px solid rgba(39,40,41,0.1)",
-            display: { xs: "block", lg: "none" },
+            display: "none",
           }}
         >
           <Toolbar sx={{ gap: 2, overflowX: "auto", py: 0.5 }}>
@@ -332,12 +332,16 @@ export default function App() {
             alignItems: "center",
             backgroundImage: `linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url(${heroPhotoUrl})`,
             backgroundSize: "cover",
-            backgroundPosition: "right center",
+            backgroundPosition: { xs: "60% center", md: "right center" },
           }}
         >
           <Container
             maxWidth="lg"
-            sx={{ py: { xs: 8, md: 12 }, pl: { lg: 10 } }}
+            sx={{
+              py: { xs: 7, md: 12 },
+              px: { xs: 3, sm: 4 },
+              pl: { lg: 10 },
+            }}
           >
             <Typography
               variant="h1"
@@ -397,24 +401,32 @@ export default function App() {
               "linear-gradient(180deg, #f8fbff 0%, #eef4ff 55%, #e8f0ff 100%)",
           }}
         >
-          <Container maxWidth="lg" sx={{ pl: { lg: 10 } }}>
+          <Container
+            maxWidth="lg"
+            sx={{ pl: { lg: 10 }, px: { xs: 3, sm: 4, md: 6, lg: 0 } }}
+          >
             <SectionTitle title="About Me" />
             <Box
               sx={{
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
                 alignItems: "flex-start",
-                gap: { xs: 3, md: 4 },
+                gap: { xs: 2.5, md: 4 },
               }}
             >
-              <Box sx={{ flex: "0 0 300px" }}>
+              <Box
+                sx={{
+                  flex: { xs: "0 0 200px", sm: "0 0 230px", md: "0 0 260px" },
+                  alignSelf: { xs: "center", md: "flex-start" },
+                }}
+              >
                 <Box
                   component="img"
                   src={aboutPhotoUrl}
                   alt="Profile"
                   sx={{
                     width: "100%",
-                    maxWidth: 300,
+                    maxWidth: { xs: 220, sm: 240, md: 260 },
                     borderRadius: 2,
                     objectFit: "cover",
                     display: "block",
@@ -425,23 +437,31 @@ export default function App() {
                 sx={{
                   flex: 1,
                   minWidth: 0,
-                  maxWidth: 720,
+                  maxWidth: 680,
                   pt: { md: 2 },
-                  mt: 5,
+                  mt: { xs: 1.5, md: 5 },
                 }}
               >
-                <Typography variant="h5" sx={{ color: "#130f0fff" }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: "#130f0fff",
+                    fontSize: { xs: "1.15rem", md: "1.35rem" },
+                    lineHeight: 1.4,
+                  }}
+                >
                   I'm Airica Patino a Web Developer
                 </Typography>
                 <Typography
                   sx={{
-                    mt: 1.5,
+                    mt: 1.2,
                     color: "text.secondary",
-                    lineHeight: 1.8,
+                    lineHeight: { xs: 1.6, md: 1.8 },
                     textAlign: "left",
+                    fontSize: { xs: "0.97rem", md: "1rem" },
                   }}
                 >
-                  I’m a full-stack developer who enjoys building reliable web
+                  I'm a full-stack developer who enjoys building reliable web
                   applications that solve real-world problems. I focus on clean
                   code, smooth data flow, and creating user-friendly experiences
                   across both frontend and backend.
@@ -587,12 +607,15 @@ export default function App() {
           id="portfolio"
           sx={{
             py: { xs: 7, md: 10 },
-            minHeight: { xs: "106vh", md: "108vh" },
+            minHeight: { xs: "auto", md: "108vh" },
             backgroundImage:
               "linear-gradient(180deg, #f7fbff 0%, #eaf3ff 52%, #dfeeff 100%)",
           }}
         >
-          <Container maxWidth="lg" sx={{ pl: { lg: 10 } }}>
+          <Container
+            maxWidth="lg"
+            sx={{ pl: { lg: 10 }, px: { xs: 3, sm: 4, md: 6, lg: 0 } }}
+          >
             <Box sx={{ textAlign: "center", mb: 4.5 }}>
               <Typography
                 variant="h3"
@@ -617,6 +640,7 @@ export default function App() {
               <Typography
                 sx={{
                   mt: 1.3,
+                  px: { xs: 2, sm: 0 },
                   color: "#111827",
                   maxWidth: 760,
                   mx: "auto",
@@ -678,65 +702,88 @@ export default function App() {
 
             <Box
               sx={{
-                display: "flex",
-                gap: 2.5,
-                overflowX: "auto",
+                width: "100%",
+                overflowX: { xs: "auto", md: "visible" },
                 overflowY: "hidden",
-                pb: 1.2,
+                pb: { xs: 1.2, md: 0 },
                 scrollBehavior: "smooth",
                 "&::-webkit-scrollbar": { height: 8 },
                 "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(255,255,255,0.35)",
+                  backgroundColor: "rgba(39,40,41,0.25)",
                   borderRadius: 99,
                 },
               }}
             >
-              {projects.map((project) => (
-                <Card
-                  key={project.title}
-                  onClick={() => handleOpenProjectModal(project)}
-                  sx={{
-                    width: { xs: 280, md: "calc((100% - 40px) / 3)" },
-                    minWidth: { xs: 280, md: "calc((100% - 40px) / 3)" },
-                    flex: "0 0 auto",
-                    borderRadius: 3,
-                    boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
-                    cursor: "pointer",
-                    transition: "transform 180ms ease",
-                    "&:hover": { transform: "translateY(-4px)" },
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={
-                      project.images?.[projectImageIndexes[project.title] ?? 0]
-                    }
-                    alt={project.title}
-                    sx={{ width: "100%", height: 210, objectFit: "cover" }}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontSize: "1.08rem" }}>
-                      {project.title}
-                    </Typography>
-                    <Typography
-                      sx={{ mt: 0.8, color: "text.secondary", lineHeight: 1.7 }}
-                    >
-                      {truncateText(project.summary, 60)}
-                    </Typography>
-                    <Typography
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "repeat(3, minmax(240px, 1fr))",
+                    sm: "repeat(3, minmax(250px, 1fr))",
+                    md: "repeat(3, minmax(0, 1fr))",
+                  },
+                  gap: { xs: 2, md: 2.5 },
+                  alignItems: "stretch",
+                  minWidth: { xs: 780, sm: 820, md: "auto" },
+                }}
+              >
+                {projects.map((project) => (
+                  <Card
+                    key={project.title}
+                    onClick={() => handleOpenProjectModal(project)}
+                    sx={{
+                      width: "100%",
+                      borderRadius: 3,
+                      boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
+                      cursor: "pointer",
+                      transition: "transform 180ms ease",
+                      display: "flex",
+                      flexDirection: "column",
+                      "&:hover": { transform: "translateY(-4px)" },
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={
+                        project.images?.[projectImageIndexes[project.title] ?? 0]
+                      }
+                      alt={project.title}
                       sx={{
-                        mt: 1.1,
-                        fontSize: "0.78rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.08em",
-                        color: "#111827",
+                        width: "100%",
+                        height: { xs: 190, sm: 210 },
+                        objectFit: "cover",
                       }}
+                    />
+                    <CardContent
+                      sx={{ flexGrow: 1, display: "grid", gap: 0.6 }}
                     >
-                      {project.category.toUpperCase()}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              ))}
+                      <Typography variant="h6" sx={{ fontSize: "1.08rem" }}>
+                        {project.title}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          mt: 0.1,
+                          color: "text.secondary",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {truncateText(project.summary, 60)}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          mt: 0.5,
+                          fontSize: "0.78rem",
+                          fontWeight: 700,
+                          letterSpacing: "0.08em",
+                          color: "#111827",
+                        }}
+                      >
+                        {project.category.toUpperCase()}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
             </Box>
           </Container>
         </Box>
@@ -835,7 +882,10 @@ export default function App() {
               "linear-gradient(180deg, #f7fbff 0%, #edf5ff 55%, #e7f0ff 100%)",
           }}
         >
-          <Container maxWidth="lg" sx={{ pl: { lg: 10 } }}>
+          <Container
+            maxWidth="lg"
+            sx={{ pl: { lg: 10 }, px: { xs: 3, sm: 4, md: 6, lg: 0 } }}
+          >
             <SectionTitle
               title="Contact Me"
               description="Let us work together on your next web project."
