@@ -4,11 +4,14 @@ import {
   Button,
   Card,
   CardContent,
+  Chip,
   Container,
   CssBaseline,
   Dialog,
   DialogContent,
   DialogTitle,
+  Tab,
+  Tabs,
   Grid,
   IconButton,
   Link,
@@ -82,6 +85,94 @@ const techStackItems = [
 
 const projects = [
   {
+    title: "Qr-attendance",
+    category: "Full-Stack",
+    images: [
+      `${import.meta.env.BASE_URL}qr-attendance/web-1.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-2.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-3.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-4.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-5.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-6.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-7.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-8.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-9.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/web-10.png`,
+      `${import.meta.env.BASE_URL}qr-attendance/mob-1.jpg`,
+      `${import.meta.env.BASE_URL}qr-attendance/mob-2.jpg`,
+      `${import.meta.env.BASE_URL}qr-attendance/mob-3.jpg`,
+      `${import.meta.env.BASE_URL}qr-attendance/mob-4.jpg`,
+      `${import.meta.env.BASE_URL}qr-attendance/mob-5.jpg`,
+    ],
+    sections: [
+      {
+        key: "web",
+        label: "Web",
+        images: [
+          `${import.meta.env.BASE_URL}qr-attendance/web-1.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-2.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-3.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-4.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-5.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-6.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-7.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-8.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-9.png`,
+          `${import.meta.env.BASE_URL}qr-attendance/web-10.png`,
+        ],
+        bullets: [
+          "Admin dashboard for attendance analytics and daily summaries.",
+          "Student, teacher, and section management with role-based permissions.",
+          "Attendance validation rules and section-based data access controls.",
+          "Secure API integration with token authentication.",
+        ],
+      },
+      {
+        key: "mobile",
+        label: "Mobile",
+        images: [
+          `${import.meta.env.BASE_URL}qr-attendance/mob-1.jpg`,
+          `${import.meta.env.BASE_URL}qr-attendance/mob-2.jpg`,
+          `${import.meta.env.BASE_URL}qr-attendance/mob-3.jpg`,
+          `${import.meta.env.BASE_URL}qr-attendance/mob-4.jpg`,
+          `${import.meta.env.BASE_URL}qr-attendance/mob-5.jpg`,
+        ],
+        bullets: [
+          "Real-time QR scanning to quickly record student attendance.",
+          "Teacher-focused workflow for per-section attendance sessions.",
+          "Immediate submission to backend with validation and timestamping.",
+          "Optional guardian SMS alerts based on attendance events.",
+        ],
+      },
+    ],
+    techStack: [
+      "Laravel API",
+      "React",
+      "React Native",
+      "Token Auth",
+      "RBAC",
+    ],
+    summary:
+      "QR Attendance System is a full-stack school attendance platform that digitizes student attendance tracking using QR code scanning. The system enables administrators to manage students, teachers, and class sections while allowing teachers to record attendance through a mobile app using real-time QR scanning. The project follows a monorepo architecture consisting of a Laravel API backend, a React web admin panel, and a React Native mobile application. It features secure token-based authentication, role-based access control, attendance validation rules, dashboard analytics, and optional SMS notifications for guardians. The platform streamlines attendance monitoring while enforcing section-based data access for teachers.",
+  },
+  {
+    title: "Bcflow - Capstone Project",
+    category: "Full-Stack",
+    images: [
+      `${import.meta.env.BASE_URL}bcflow/bcflow-1.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-2.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-3.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-4.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-5.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-6.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-7.png`,
+      `${import.meta.env.BASE_URL}bcflow/bcflow-8.png`,
+    ],
+    techStack: ["Next.js", "Redux Toolkit", "Laravel API", "MySQL"],
+    summary:
+      "BC Flow is a full-stack workflow management application developed to digitize departmental purchase and reservation processes. The platform enables staff to submit requests, track approval progress, and manage reservations while administrators oversee budgets, departments, and users through role-based access control. The system features a Next.js frontend with Redux Toolkit for state management and a Laravel API backend secured with token authentication. It includes dashboards, approval workflows, budget monitoring, and administrative tools designed for internal organizational operations.",
+  },
+  {
     title: "Ordering System",
     category: "Web Development",
     images: [
@@ -92,35 +183,11 @@ const projects = [
       `${import.meta.env.BASE_URL}pcbee/pcbee-5.png`,
       `${import.meta.env.BASE_URL}pcbee/pcbee-6.png`,
     ],
+    techStack: ["Laravel", "PHP", "MySQL", "JavaScript", "Node.js", "Docker"],
     summary:
-      "The PC Bee Ordering Parts System is a web-based application that helps staff and administrators manage and track laptop parts orders from suppliers in one centralized platform. It allows users to create, update, and monitor orders with role-based access, improving order tracking efficiency and reducing manual follow-ups. The system is built using Laravel (PHP), MySQL, and a JavaScript frontend with Node.js/Yarn, with optional Docker support for deployment.",
-  },
-  {
-    title: "Branding Landing Page",
-    category: "UI/UX",
-    images: [
-      `${import.meta.env.BASE_URL}portfolio/branding-1.jpg`,
-      `${import.meta.env.BASE_URL}portfolio/app-1.jpg`,
-      `${import.meta.env.BASE_URL}portfolio/product-1.jpg`,
-    ],
-    summary:
-      "Marketing page with consistent visual language, clear sections, and strong CTA flow.",
-  },
-  {
-    title: "Product Showcase",
-    category: "Frontend",
-    images: [
-      `${import.meta.env.BASE_URL}portfolio/product-1.jpg`,
-      `${import.meta.env.BASE_URL}portfolio/branding-1.jpg`,
-      `${import.meta.env.BASE_URL}portfolio/app-1.jpg`,
-    ],
-    summary:
-      "Product-first interface with image-led storytelling and polished, mobile-ready layouts.",
+      "The Ordering Parts System is a web-based application that helps staff and administrators manage and track laptop parts orders from suppliers in one centralized platform. It allows users to create, update, and monitor orders with role-based access, improving order tracking efficiency and reducing manual follow-ups. The system is built using Laravel (PHP), MySQL, and a JavaScript frontend with Node.js/Yarn, with optional Docker support for deployment.",
   },
 ];
-
-const truncateText = (text, maxLength) =>
-  text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 
 const theme = createTheme({
   palette: {
@@ -171,6 +238,15 @@ export default function App() {
   const techStackScrollRef = useRef(null);
   const [activeProject, setActiveProject] = useState(null);
   const [modalImageIndex, setModalImageIndex] = useState(0);
+  const [activeProjectSection, setActiveProjectSection] = useState("");
+  const currentModalSection = activeProject
+    ? activeProject.sections?.find(
+        (section) => section.key === activeProjectSection,
+      ) ?? null
+    : null;
+  const currentModalImages =
+    currentModalSection?.images ?? activeProject?.images ?? [];
+  const isMobileModalSection = currentModalSection?.key === "mobile";
   const [projectImageIndexes, setProjectImageIndexes] = useState(
     projects.reduce((acc, project) => {
       if (project.images?.length) acc[project.title] = 0;
@@ -196,12 +272,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!activeProject || !activeProject.images?.length) return undefined;
+    if (!activeProject || currentModalImages.length === 0) return undefined;
     const modalTimer = window.setInterval(() => {
-      setModalImageIndex((prev) => (prev + 1) % activeProject.images.length);
+      setModalImageIndex((prev) => (prev + 1) % currentModalImages.length);
     }, 2500);
     return () => window.clearInterval(modalTimer);
-  }, [activeProject]);
+  }, [activeProject, currentModalImages.length]);
 
   const handleTechStackWheel = (event) => {
     const container = techStackScrollRef.current;
@@ -213,11 +289,13 @@ export default function App() {
 
   const handleOpenProjectModal = (project) => {
     setActiveProject(project);
-    setModalImageIndex(projectImageIndexes[project.title] ?? 0);
+    setActiveProjectSection(project.sections?.[0]?.key ?? "");
+    setModalImageIndex(project.sections?.length ? 0 : (projectImageIndexes[project.title] ?? 0));
   };
 
   const handleCloseProjectModal = () => {
     setActiveProject(null);
+    setActiveProjectSection("");
   };
 
   return (
@@ -649,55 +727,6 @@ export default function App() {
                 Selected projects showcasing practical web solutions, UI
                 quality, and maintainable architecture.
               </Typography>
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{
-                  mt: 2.6,
-                  mx: "auto",
-                  p: 0.7,
-                  width: "fit-content",
-                  borderRadius: 99,
-                  bgcolor: "white",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    px: 2.5,
-                    py: 0.7,
-                    borderRadius: 99,
-                    bgcolor: "#e53935",
-                    color: "white",
-                    fontWeight: 600,
-                  }}
-                >
-                  Web Development
-                </Box>
-                <Box
-                  sx={{
-                    px: 2.5,
-                    py: 0.7,
-                    borderRadius: 99,
-                    color: "#e53935",
-                    fontWeight: 600,
-                  }}
-                >
-                  UI/UX
-                </Box>
-                <Box
-                  sx={{
-                    px: 2.5,
-                    py: 0.7,
-                    borderRadius: 99,
-                    color: "#e53935",
-                    fontWeight: 600,
-                  }}
-                >
-                  Frontend
-                </Box>
-              </Stack>
             </Box>
 
             <Box
@@ -760,26 +789,28 @@ export default function App() {
                       <Typography variant="h6" sx={{ fontSize: "1.08rem" }}>
                         {project.title}
                       </Typography>
-                      <Typography
-                        sx={{
-                          mt: 0.1,
-                          color: "text.secondary",
-                          lineHeight: 1.7,
-                        }}
+                      <Stack
+                        direction="row"
+                        spacing={0.7}
+                        useFlexGap
+                        flexWrap="wrap"
+                        sx={{ mt: 0.3 }}
                       >
-                        {truncateText(project.summary, 60)}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          mt: 0.5,
-                          fontSize: "0.78rem",
-                          fontWeight: 700,
-                          letterSpacing: "0.08em",
-                          color: "#111827",
-                        }}
-                      >
-                        {project.category.toUpperCase()}
-                      </Typography>
+                        {project.techStack?.map((tech) => (
+                          <Chip
+                            key={tech}
+                            label={tech}
+                            size="small"
+                            sx={{
+                              height: 22,
+                              fontSize: "0.7rem",
+                              fontWeight: 600,
+                              bgcolor: "rgba(229,57,53,0.1)",
+                              color: "#b71c1c",
+                            }}
+                          />
+                        ))}
+                      </Stack>
                     </CardContent>
                   </Card>
                 ))}
@@ -797,49 +828,107 @@ export default function App() {
           {activeProject && (
             <>
               <DialogTitle>
-                <Stack direction="row" spacing={1.2} alignItems="center">
-                  <Box component="span" sx={{ fontWeight: 700 }}>
-                    {activeProject.title}
-                  </Box>
-                  <Box
-                    component="span"
-                    sx={{
-                      px: 1.2,
-                      py: 0.25,
-                      borderRadius: 99,
-                      fontSize: "0.72rem",
-                      fontWeight: 700,
-                      letterSpacing: "0.08em",
-                      bgcolor: "#e53935",
-                      color: "white",
-                    }}
-                  >
-                    {activeProject.category.toUpperCase()}
-                  </Box>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems={{ xs: "flex-start", sm: "center" }}
+                  spacing={1.2}
+                >
+                  <Stack spacing={1} sx={{ minWidth: 0 }}>
+                    <Box component="span" sx={{ fontWeight: 700 }}>
+                      {activeProject.title}
+                    </Box>
+                    <Stack
+                      direction="row"
+                      spacing={0.7}
+                      useFlexGap
+                      flexWrap="wrap"
+                    >
+                      {activeProject.techStack?.map((tech) => (
+                        <Chip
+                          key={tech}
+                          label={tech}
+                          size="small"
+                          sx={{
+                            height: 22,
+                            fontSize: "0.7rem",
+                            fontWeight: 600,
+                            bgcolor: "rgba(229,57,53,0.1)",
+                            color: "#b71c1c",
+                          }}
+                        />
+                      ))}
+                    </Stack>
+                  </Stack>
+                  {activeProject.sections?.length > 1 && (
+                    <Tabs
+                      value={activeProjectSection}
+                      onChange={(_, nextSection) => {
+                        setActiveProjectSection(nextSection);
+                        setModalImageIndex(0);
+                      }}
+                      sx={{
+                        minHeight: 22,
+                        flexShrink: 0,
+                        "& .MuiTabs-indicator": { display: "none" },
+                      }}
+                    >
+                      {activeProject.sections.map((section) => (
+                        <Tab
+                          key={section.key}
+                          value={section.key}
+                          label={section.label}
+                          sx={{
+                            minHeight: 22,
+                            py: 0,
+                            px: 1.2,
+                            textTransform: "none",
+                            fontSize: "0.72rem",
+                            fontWeight: 700,
+                            borderRadius: 999,
+                            minWidth: 0,
+                            color: "#7f1d1d",
+                            bgcolor: "rgba(229,57,53,0.08)",
+                            "&.Mui-selected": {
+                              color: "white",
+                              bgcolor: "#e53935",
+                            },
+                          }}
+                        />
+                      ))}
+                    </Tabs>
+                  )}
                 </Stack>
               </DialogTitle>
               <DialogContent sx={{ pt: 1 }}>
                 <Box sx={{ position: "relative" }}>
                   <Box
                     component="img"
-                    src={activeProject.images[modalImageIndex]}
+                    src={currentModalImages[modalImageIndex]}
                     alt={activeProject.title}
                     sx={{
-                      width: "100%",
-                      height: { xs: 240, md: 420 },
-                      objectFit: "cover",
+                      width: isMobileModalSection
+                        ? { xs: "74%", sm: "58%", md: "42%" }
+                        : "100%",
+                      maxWidth: isMobileModalSection ? 360 : "100%",
+                      height: isMobileModalSection
+                        ? { xs: 360, md: 500 }
+                        : { xs: 240, md: 420 },
+                      objectFit: isMobileModalSection ? "contain" : "cover",
                       borderRadius: 2,
+                      mx: "auto",
+                      display: "block",
                     }}
                   />
                 </Box>
-                {activeProject.images.length > 1 && (
+                {currentModalImages.length > 1 && (
                   <Stack
                     direction="row"
                     spacing={1}
                     justifyContent="center"
                     sx={{ mt: 1.2 }}
                   >
-                    {activeProject.images.map((_, index) => (
+                    {currentModalImages.map((_, index) => (
                       <Box
                         key={index}
                         component="button"
@@ -861,6 +950,23 @@ export default function App() {
                       />
                     ))}
                   </Stack>
+                )}
+                {currentModalSection?.bullets?.length > 0 && (
+                  <Box
+                    component="ul"
+                    sx={{
+                      mt: 1.8,
+                      pl: 2.6,
+                      color: "text.secondary",
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {currentModalSection.bullets.map((bullet) => (
+                      <Box component="li" key={bullet} sx={{ mb: 0.4 }}>
+                        {bullet}
+                      </Box>
+                    ))}
+                  </Box>
                 )}
                 <Typography
                   sx={{ mt: 2, color: "text.secondary", lineHeight: 1.75 }}
