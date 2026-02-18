@@ -38,14 +38,14 @@ export default function PortfolioTemplate({
         resumeUrl={resumeUrl}
         aboutPhotoUrl={aboutPhotoUrl}
         experienceItems={experienceItems}
-        techStackItems={techStackItems}
-        techStackScrollRef={techStackScrollRef}
-        onTechStackWheel={onTechStackWheel}
       />
       <PortfolioSection
         projects={projects}
         projectImageIndexes={projectImageIndexes}
         onOpenProjectModal={onOpenProjectModal}
+        techStackItems={techStackItems}
+        techStackScrollRef={techStackScrollRef}
+        onTechStackWheel={onTechStackWheel}
       />
       <ProjectModal
         activeProject={activeProject}

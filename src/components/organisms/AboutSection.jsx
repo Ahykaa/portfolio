@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import SectionTitle from "../atoms/SectionTitle";
 
@@ -6,9 +6,6 @@ export default function AboutSection({
   resumeUrl,
   aboutPhotoUrl,
   experienceItems,
-  techStackItems,
-  techStackScrollRef,
-  onTechStackWheel,
 }) {
   return (
     <Box
@@ -70,7 +67,7 @@ export default function AboutSection({
                 lineHeight: 1.4,
               }}
             >
-              I&apos;m Airica Patino a Web Developer
+              I&apos;m Airica Patiño a Web Developer
             </Typography>
             <Typography
               sx={{
@@ -123,7 +120,7 @@ export default function AboutSection({
         </Box>
 
         <Grid container spacing={3.2} sx={{ mt: 3.2 }}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <Typography variant="h6" sx={{ mb: 1.5 }}>
               Resume Summary
             </Typography>
@@ -146,73 +143,6 @@ export default function AboutSection({
                 <Typography sx={{ color: "text.secondary" }}>{item.details}</Typography>
               </Box>
             ))}
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6" sx={{ mb: 1.5 }}>
-              Tech Stack
-            </Typography>
-            <Box
-              ref={techStackScrollRef}
-              onWheel={onTechStackWheel}
-              sx={{
-                display: "flex",
-                gap: 1.3,
-                overflowX: "auto",
-                overflowY: "hidden",
-                overscrollBehavior: "contain",
-                pb: 1,
-                scrollBehavior: "smooth",
-                "&::-webkit-scrollbar": { height: 8 },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(39,40,41,0.25)",
-                  borderRadius: 99,
-                },
-              }}
-            >
-              {techStackItems.map((item) => (
-                <Paper
-                  key={item.label}
-                  elevation={0}
-                  sx={{
-                    minWidth: 108,
-                    flex: "0 0 auto",
-                    px: 1,
-                    py: 1.2,
-                    borderRadius: 2,
-                    border: "none",
-                    boxShadow: "none",
-                    bgcolor: "transparent",
-                    textAlign: "center",
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={item.iconUrl}
-                    alt={item.label}
-                    loading="lazy"
-                    sx={{
-                      width: 30,
-                      height: 30,
-                      objectFit: "contain",
-                      display: "block",
-                      mx: "auto",
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      mt: 0.6,
-                      fontSize: "0.72rem",
-                      letterSpacing: "0.06em",
-                      fontWeight: 700,
-                      textAlign: "center",
-                    }}
-                  >
-                    {item.label.toUpperCase()}
-                  </Typography>
-                </Paper>
-              ))}
-            </Box>
           </Grid>
         </Grid>
       </Container>

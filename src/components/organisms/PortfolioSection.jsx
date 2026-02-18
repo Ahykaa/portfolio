@@ -1,10 +1,13 @@
-import { Box, Card, CardContent, Container, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Container, Paper, Stack, Typography } from "@mui/material";
 import TechChip from "../atoms/TechChip";
 
 export default function PortfolioSection({
   projects,
   projectImageIndexes,
   onOpenProjectModal,
+  techStackItems,
+  techStackScrollRef,
+  onTechStackWheel,
 }) {
   return (
     <Box
@@ -119,6 +122,73 @@ export default function PortfolioSection({
                   </Stack>
                 </CardContent>
               </Card>
+            ))}
+          </Box>
+        </Box>
+
+        <Box sx={{ mt: { xs: 3.2, md: 4 } }}>
+          <Typography variant="h6" sx={{ mb: 1.5 }}>
+            Tech Stack
+          </Typography>
+          <Box
+            ref={techStackScrollRef}
+            onWheel={onTechStackWheel}
+            sx={{
+              display: "flex",
+              gap: 1.3,
+              overflowX: "auto",
+              overflowY: "hidden",
+              overscrollBehavior: "contain",
+              pb: 1,
+              scrollBehavior: "smooth",
+              "&::-webkit-scrollbar": { height: 8 },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(39,40,41,0.25)",
+                borderRadius: 99,
+              },
+            }}
+          >
+            {techStackItems.map((item) => (
+              <Paper
+                key={item.label}
+                elevation={0}
+                sx={{
+                  minWidth: 108,
+                  flex: "0 0 auto",
+                  px: 1,
+                  py: 1.2,
+                  borderRadius: 2,
+                  border: "none",
+                  boxShadow: "none",
+                  bgcolor: "transparent",
+                  textAlign: "center",
+                }}
+              >
+                <Box
+                  component="img"
+                  src={item.iconUrl}
+                  alt={item.label}
+                  loading="lazy"
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    objectFit: "contain",
+                    display: "block",
+                    mx: "auto",
+                  }}
+                />
+                <Typography
+                  sx={{
+                    mt: 0.6,
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.06em",
+                    fontWeight: 700,
+                    textAlign: "center",
+                  }}
+                >
+                  {item.label.toUpperCase()}
+                </Typography>
+              </Paper>
             ))}
           </Box>
         </Box>
