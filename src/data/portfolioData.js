@@ -28,31 +28,31 @@ export const experienceItems = [
 ];
 
 export const techStackItems = [
-  { label: "PHP", iconUrl: "https://cdn.simpleicons.org/php/1f2328" },
+  { label: "PHP", iconUrl: "https://cdn.simpleicons.org/php" },
   {
     label: "JavaScript",
-    iconUrl: "https://cdn.simpleicons.org/javascript/1f2328",
+    iconUrl: "https://cdn.simpleicons.org/javascript",
   },
-  { label: "Python", iconUrl: "https://cdn.simpleicons.org/python/1f2328" },
-  { label: "React.js", iconUrl: "https://cdn.simpleicons.org/react/1f2328" },
-  { label: "Material UI", iconUrl: "https://cdn.simpleicons.org/mui/1f2328" },
-  { label: "HTML5", iconUrl: "https://cdn.simpleicons.org/html5/1f2328" },
-  { label: "CSS3", iconUrl: "https://cdn.simpleicons.org/css/1f2328" },
+  { label: "Python", iconUrl: "https://cdn.simpleicons.org/python" },
+  { label: "React.js", iconUrl: "https://cdn.simpleicons.org/react" },
+  { label: "Material UI", iconUrl: "https://cdn.simpleicons.org/mui" },
+  { label: "HTML5", iconUrl: "https://cdn.simpleicons.org/html5" },
+  { label: "CSS3", iconUrl: "https://cdn.simpleicons.org/css" },
   {
     label: "Bootstrap",
-    iconUrl: "https://cdn.simpleicons.org/bootstrap/1f2328",
+    iconUrl: "https://cdn.simpleicons.org/bootstrap",
   },
-  { label: "Laravel", iconUrl: "https://cdn.simpleicons.org/laravel/1f2328" },
-  { label: "MySQL", iconUrl: "https://cdn.simpleicons.org/mysql/1f2328" },
-  { label: "DBeaver", iconUrl: "https://cdn.simpleicons.org/dbeaver/1f2328" },
-  { label: "Git", iconUrl: "https://cdn.simpleicons.org/git/1f2328" },
-  { label: "GitHub", iconUrl: "https://cdn.simpleicons.org/github/1f2328" },
+  { label: "Laravel", iconUrl: "https://cdn.simpleicons.org/laravel" },
+  { label: "MySQL", iconUrl: "https://cdn.simpleicons.org/mysql" },
+  { label: "DBeaver", iconUrl: "https://cdn.simpleicons.org/dbeaver" },
+  { label: "Git", iconUrl: "https://cdn.simpleicons.org/git" },
+  { label: "GitHub", iconUrl: "https://cdn.simpleicons.org/github" },
   {
     label: "Bitbucket",
-    iconUrl: "https://cdn.simpleicons.org/bitbucket/1f2328",
+    iconUrl: "https://cdn.simpleicons.org/bitbucket",
   },
-  { label: "Docker", iconUrl: "https://cdn.simpleicons.org/docker/1f2328" },
-  { label: "Linux Admin", iconUrl: "https://cdn.simpleicons.org/linux/1f2328" },
+  { label: "Docker", iconUrl: "https://cdn.simpleicons.org/docker" },
+  { label: "Linux Admin", iconUrl: "https://cdn.simpleicons.org/linux" },
 ];
 
 export const projects = [

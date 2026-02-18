@@ -8,7 +8,6 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
-import TechChip from "../atoms/TechChip";
 
 export default function ProjectModal({
   activeProject,
@@ -36,11 +35,6 @@ export default function ProjectModal({
                 <Box component="span" sx={{ fontWeight: 700 }}>
                   {activeProject.title}
                 </Box>
-                <Stack direction="row" spacing={0.7} useFlexGap flexWrap="wrap">
-                  {activeProject.techStack?.map((tech) => (
-                    <TechChip key={tech} label={tech} />
-                  ))}
-                </Stack>
               </Stack>
               {activeProject.sections?.length > 1 && (
                 <Tabs

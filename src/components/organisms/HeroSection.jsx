@@ -29,7 +29,7 @@ export default function HeroSection({ heroPhotoUrl }) {
             color: "#130f0fff",
           }}
         >
-          Airica S. Patino
+          Airica S. Patiño
         </Typography>
         <Typography
           sx={{
