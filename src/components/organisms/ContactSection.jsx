@@ -2,37 +2,69 @@ import {
   Box,
   Container,
   Grid,
+  IconButton,
   Link,
   Paper,
+  Snackbar,
   Stack,
   Typography,
 } from "@mui/material";
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import PhoneAndroidRoundedIcon from "@mui/icons-material/PhoneAndroidRounded";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import SectionTitle from "../atoms/SectionTitle";
+import { useState } from "react";
 
 export default function ContactSection() {
+  const [copiedLabel, setCopiedLabel] = useState("");
+
   const contactItems = [
     {
       title: "Email",
       value: "patino.airica@gmail.com",
+      displayValue: "patino.airica@gmail.com",
+      copyValue: "patino.airica@gmail.com",
       href: "mailto:patino.airica@gmail.com",
       icon: EmailRoundedIcon,
     },
     {
+      title: "Mobile",
+      value: "0936-601-8072",
+      displayValue: "0936-601-8072",
+      copyValue: "09366018072",
+      href: "tel:09366018072",
+      icon: PhoneAndroidRoundedIcon,
+    },
+    {
       title: "LinkedIn",
-      value: "www.linkedin.com/in/airicapatino",
+      value: "linkedin.com/in/airicapatino",
+      displayValue: "linkedin.com/in/airicapatino",
+      copyValue: "https://www.linkedin.com/in/airicapatino",
       href: "https://www.linkedin.com/in/airicapatino",
       icon: LinkedInIcon,
     },
     {
       title: "GitHub",
-      value: "https://github.com/Ahykaa",
+      value: "github.com/Ahykaa",
+      displayValue: "github.com/Ahykaa",
+      copyValue: "https://github.com/Ahykaa",
       href: "https://github.com/Ahykaa",
       icon: GitHubIcon,
     },
   ];
+
+  const handleCopy = async (event, item) => {
+    event.preventDefault();
+    event.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(item.copyValue ?? item.value);
+      setCopiedLabel(item.title);
+    } catch {
+      setCopiedLabel("");
+    }
+  };
 
   return (
     <Box
@@ -59,17 +91,25 @@ export default function ContactSection() {
             return (
               <Grid item xs={12} md={4} key={item.title}>
                 <Paper
+                  component={Link}
+                  href={item.href}
+                  target={item.title === "Email" ? undefined : "_blank"}
+                  rel={item.title === "Email" ? undefined : "noreferrer"}
+                  underline="none"
                   sx={{
                     p: 2.4,
                     height: "100%",
+                    display: "block",
                     borderRadius: 3,
                     border: "1px solid rgba(229,57,53,0.16)",
                     background:
                       "linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,251,255,0.95) 100%)",
-                    transition: "transform 220ms ease, box-shadow 220ms ease",
+                    transition:
+                      "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease",
                     "&:hover": {
                       transform: "translateY(-4px)",
                       boxShadow: "0 14px 28px rgba(229,57,53,0.16)",
+                      borderColor: "rgba(229,57,53,0.45)",
                     },
                   }}
                 >
@@ -93,26 +133,47 @@ export default function ContactSection() {
                     </Typography>
                   </Stack>
 
-                  <Link
-                    href={item.href}
-                    target={item.title === "Email" ? undefined : "_blank"}
-                    rel={item.title === "Email" ? undefined : "noreferrer"}
-                    underline="hover"
-                    sx={{
-                      mt: 1.1,
-                      display: "inline-block",
-                      color: "text.secondary",
-                      fontSize: "0.95rem",
-                      wordBreak: "break-word",
-                    }}
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={1}
+                    sx={{ mt: 1.1 }}
                   >
-                    {item.value}
-                  </Link>
+                    <Typography
+                      sx={{
+                        color: "text.secondary",
+                        fontSize: "0.95rem",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {item.displayValue ?? item.value}
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      aria-label={`Copy ${item.title}`}
+                      onClick={(event) => handleCopy(event, item)}
+                      sx={{
+                        color: "primary.main",
+                        bgcolor: "rgba(229,57,53,0.09)",
+                        "&:hover": { bgcolor: "rgba(229,57,53,0.16)" },
+                      }}
+                    >
+                      <ContentCopyRoundedIcon fontSize="inherit" />
+                    </IconButton>
+                  </Stack>
                 </Paper>
               </Grid>
             );
           })}
         </Grid>
+        <Snackbar
+          open={Boolean(copiedLabel)}
+          autoHideDuration={1600}
+          onClose={() => setCopiedLabel("")}
+          message={copiedLabel ? `${copiedLabel} copied` : ""}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        />
       </Container>
     </Box>
   );

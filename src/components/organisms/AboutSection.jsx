@@ -25,10 +25,11 @@ export default function AboutSection({
         <SectionTitle title="About Me" />
         <Box
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            alignItems: "flex-start",
-            gap: { xs: 2.5, md: 4 },
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "260px minmax(0, 1fr)" },
+            alignItems: "start",
+            columnGap: { md: 4.5, lg: 5.5 },
+            rowGap: { xs: 2.5, md: 0 },
           }}
         >
           <Box
@@ -52,55 +53,45 @@ export default function AboutSection({
           </Box>
           <Box
             sx={{
-              flex: 1,
+              width: "100%",
               minWidth: 0,
-              maxWidth: 680,
+              maxWidth: { md: "none" },
               pt: { md: 2 },
-              mt: { xs: 1.5, md: 5 },
+              mt: { xs: 1.5, md: 2.2 },
             }}
           >
             <Typography
-              variant="h5"
               sx={{
-                color: "#130f0fff",
-                fontSize: { xs: "1.15rem", md: "1.35rem" },
-                lineHeight: 1.4,
+                mt: 1,
+                color: "#111827",
+                fontSize: { xs: "1.9rem", sm: "2.25rem", md: "2.7rem" },
+                fontWeight: 700,
+                lineHeight: { xs: 1.25, md: 1.2 },
               }}
             >
-              I&apos;m Airica Patiño a Web Developer
+              I&apos;m Airica Patiño,
+              <Box component="span" sx={{ display: "block", color: "primary.main" }}>
+                Full-Stack Developer
+              </Box>
+              <Box component="span" sx={{ display: "block" }}>
+                Based in Davao City, Philippines.
+              </Box>
             </Typography>
             <Typography
               sx={{
-                mt: 1.2,
+                mt: 1.4,
                 color: "text.secondary",
                 lineHeight: { xs: 1.6, md: 1.8 },
                 textAlign: "left",
-                fontSize: { xs: "0.97rem", md: "1rem" },
+                fontSize: { xs: "0.97rem", md: "1.02rem" },
               }}
             >
-              I&apos;m a full-stack developer who enjoys building reliable web
-              applications that solve real-world problems. I focus on clean
-              code, smooth data flow, and creating user-friendly experiences
-              across both frontend and backend.
+              I specialize in building practical, user-focused applications
+              using Laravel, React, React Native, and MySQL. I focus on turning
+              real operational workflows into reliable digital systems with
+              clean interfaces, secure backend logic, and maintainable
+              architecture.
             </Typography>
-            <Grid container spacing={2} sx={{ mt: 2 }}>
-              <Grid item xs={12} sm={6}>
-                <Typography sx={{ color: "text.secondary" }}>
-                  <strong>Email:</strong> patino.airica@gmail.com
-                </Typography>
-                <Typography sx={{ color: "text.secondary", mt: 1 }}>
-                  <strong>Location:</strong> Philippines
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography sx={{ color: "text.secondary" }}>
-                  <strong>Status:</strong> Available for work
-                </Typography>
-                <Typography sx={{ color: "text.secondary", mt: 1 }}>
-                  <strong>Focus:</strong> React + Laravel
-                </Typography>
-              </Grid>
-            </Grid>
             <Button
               href={resumeUrl}
               target="_blank"
@@ -122,7 +113,7 @@ export default function AboutSection({
         <Grid container spacing={3.2} sx={{ mt: 3.2 }}>
           <Grid item xs={12}>
             <Typography variant="h6" sx={{ mb: 1.5 }}>
-              Resume Summary
+              Experience Summary
             </Typography>
             {experienceItems.map((item) => (
               <Box
@@ -143,6 +134,89 @@ export default function AboutSection({
                 <Typography sx={{ color: "text.secondary" }}>{item.details}</Typography>
               </Box>
             ))}
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h6" sx={{ mb: 1.5 }}>
+              Educational Background
+            </Typography>
+            <Grid container spacing={1.6}>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    borderLeft: "2px solid #e53935",
+                    pl: 2,
+                    pb: 1.5,
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 700, color: "#2a2e33" }}>
+                    College
+                  </Typography>
+                  <Typography sx={{ mt: 0.5, color: "text.secondary" }}>
+                    Brokenshire College
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    Bachelor of Science in Information Technology
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.9rem", color: "#5f6d7a", mt: 0.4 }}>
+                    2020 - 2024
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    borderLeft: "2px solid #e53935",
+                    pl: 2,
+                    pb: 1.5,
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 700, color: "#2a2e33" }}>
+                    Secondary
+                  </Typography>
+                  <Typography sx={{ mt: 0.5, color: "text.secondary" }}>
+                    Brokenshire College
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>TVL - ICT</Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    Madapo Hills, Davao City
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.9rem", color: "#5f6d7a", mt: 0.4 }}>
+                    2018 - 2020
+                  </Typography>
+                  <Typography sx={{ mt: 1, color: "text.secondary" }}>
+                    Gov. Vicente Duterte National High School
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    Durian St., NHA Bangkal, Davao City
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.9rem", color: "#5f6d7a", mt: 0.4 }}>
+                    2014 - 2017
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    borderLeft: "2px solid #e53935",
+                    pl: 2,
+                    pb: 1.5,
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 700, color: "#2a2e33" }}>
+                    Primary
+                  </Typography>
+                  <Typography sx={{ mt: 0.5, color: "text.secondary" }}>
+                    Matina Central Elementary School
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    Matina Crossing, Davao City
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.9rem", color: "#5f6d7a", mt: 0.4 }}>
+                    2013 - 2014
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Container>

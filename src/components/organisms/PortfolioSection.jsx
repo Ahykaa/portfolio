@@ -1,4 +1,12 @@
-import { Box, Card, CardContent, Container, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import TechChip from "../atoms/TechChip";
 
 export default function PortfolioSection({
@@ -6,9 +14,17 @@ export default function PortfolioSection({
   projectImageIndexes,
   onOpenProjectModal,
   techStackItems,
-  techStackScrollRef,
-  onTechStackWheel,
 }) {
+  const handleProjectWheel = (event) => {
+    const container = event.currentTarget;
+    const hasHorizontalScroll = container.scrollWidth > container.clientWidth;
+    if (!hasHorizontalScroll) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    container.scrollLeft += event.deltaY + event.deltaX;
+  };
+
   return (
     <Box
       component="section"
@@ -45,26 +61,16 @@ export default function PortfolioSection({
               borderRadius: 99,
             }}
           />
-          <Typography
-            sx={{
-              mt: 1.3,
-              px: { xs: 2, sm: 0 },
-              color: "#111827",
-              maxWidth: 760,
-              mx: "auto",
-            }}
-          >
-            Selected projects showcasing practical web solutions, UI quality,
-            and maintainable architecture.
-          </Typography>
         </Box>
 
         <Box
+          onWheel={handleProjectWheel}
           sx={{
             width: "100%",
-            overflowX: { xs: "auto", md: "visible" },
+            overflowX: "auto",
             overflowY: "hidden",
-            pb: { xs: 1.2, md: 0 },
+            overscrollBehavior: "contain",
+            pb: { xs: 1.2, md: 0.8 },
             scrollBehavior: "smooth",
             "&::-webkit-scrollbar": { height: 8 },
             "&::-webkit-scrollbar-thumb": {
@@ -75,54 +81,71 @@ export default function PortfolioSection({
         >
           <Box
             sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "repeat(3, minmax(240px, 1fr))",
-                sm: "repeat(3, minmax(250px, 1fr))",
-                md: "repeat(3, minmax(0, 1fr))",
-              },
+              display: "flex",
               gap: { xs: 2, md: 2.5 },
               alignItems: "stretch",
-              minWidth: { xs: 780, sm: 820, md: "auto" },
             }}
           >
-            {projects.map((project) => (
-              <Card
-                key={project.title}
-                onClick={() => onOpenProjectModal(project)}
-                sx={{
-                  width: "100%",
-                  borderRadius: 3,
-                  boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
-                  cursor: "pointer",
-                  transition: "transform 180ms ease",
-                  display: "flex",
-                  flexDirection: "column",
-                  "&:hover": { transform: "translateY(-4px)" },
-                }}
-              >
-                <Box
-                  component="img"
-                  src={project.images?.[projectImageIndexes[project.title] ?? 0]}
-                  alt={project.title}
+            {projects.map((project) => {
+              const visibleTech = project.techStack?.slice(0, 4) ?? [];
+              const remainingTechCount =
+                (project.techStack?.length ?? 0) - visibleTech.length;
+
+              return (
+                <Card
+                  key={project.title}
+                  onClick={() => onOpenProjectModal(project)}
                   sx={{
-                    width: "100%",
-                    height: { xs: 190, sm: 210 },
-                    objectFit: "cover",
+                    flex: "0 0 auto",
+                    width: {
+                      xs: "88vw",
+                      sm: "46vw",
+                      md: "calc((100% - 40px) / 3)",
+                    },
+                    borderRadius: 3,
+                    boxShadow: "none",
+                    border: "1px solid rgba(39,40,41,0.12)",
+                    transition: "transform 180ms ease",
+                    display: "flex",
+                    flexDirection: "column",
+                    cursor: "pointer",
+                    "&:hover": { transform: "translateY(-4px)" },
                   }}
-                />
-                <CardContent sx={{ flexGrow: 1, display: "grid", gap: 0.6 }}>
-                  <Typography variant="h6" sx={{ fontSize: "1.08rem" }}>
-                    {project.title}
-                  </Typography>
-                  <Stack direction="row" spacing={0.7} useFlexGap flexWrap="wrap" sx={{ mt: 0.3 }}>
-                    {project.techStack?.map((tech) => (
-                      <TechChip key={tech} label={tech} />
-                    ))}
-                  </Stack>
-                </CardContent>
-              </Card>
-            ))}
+                >
+                  <Box
+                    component="img"
+                    src={project.images?.[projectImageIndexes[project.title] ?? 0]}
+                    alt={project.title}
+                    sx={{
+                      width: "100%",
+                      height: { xs: 190, sm: 210 },
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Box sx={{ flex: 1 }}>
+                    <CardContent sx={{ display: "grid", gap: 0.6 }}>
+                      <Typography variant="h6" sx={{ fontSize: "1.08rem" }}>
+                        {project.title}
+                      </Typography>
+                      <Stack
+                        direction="row"
+                        spacing={0.7}
+                        useFlexGap
+                        flexWrap="wrap"
+                        sx={{ mt: 0.3 }}
+                      >
+                        {visibleTech.map((tech) => (
+                          <TechChip key={tech} label={tech} />
+                        ))}
+                        {remainingTechCount > 0 && (
+                          <TechChip label={`+${remainingTechCount}`} />
+                        )}
+                      </Stack>
+                    </CardContent>
+                  </Box>
+                </Card>
+              );
+            })}
           </Box>
         </Box>
 
@@ -131,20 +154,14 @@ export default function PortfolioSection({
             Tech Stack
           </Typography>
           <Box
-            ref={techStackScrollRef}
-            onWheel={onTechStackWheel}
             sx={{
-              display: "flex",
-              gap: 1.3,
-              overflowX: "auto",
-              overflowY: "hidden",
-              overscrollBehavior: "contain",
-              pb: 1,
-              scrollBehavior: "smooth",
-              "&::-webkit-scrollbar": { height: 8 },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgba(39,40,41,0.25)",
-                borderRadius: 99,
+              display: "grid",
+              gap: { xs: 1, sm: 1.2, md: 1.4 },
+              gridTemplateColumns: {
+                xs: "repeat(3, minmax(0, 1fr))",
+                sm: "repeat(4, minmax(0, 1fr))",
+                lg: "repeat(6, minmax(0, 1fr))",
+                xl: "repeat(8, minmax(0, 1fr))",
               },
             }}
           >
@@ -153,9 +170,7 @@ export default function PortfolioSection({
                 key={item.label}
                 elevation={0}
                 sx={{
-                  minWidth: 108,
-                  flex: "0 0 auto",
-                  px: 1,
+                  px: { xs: 0.7, sm: 0.9, md: 1 },
                   py: 1.2,
                   borderRadius: 2,
                   border: "none",
@@ -170,8 +185,8 @@ export default function PortfolioSection({
                   alt={item.label}
                   loading="lazy"
                   sx={{
-                    width: 30,
-                    height: 30,
+                    width: { xs: 28, md: 32 },
+                    height: { xs: 28, md: 32 },
                     objectFit: "contain",
                     display: "block",
                     mx: "auto",
