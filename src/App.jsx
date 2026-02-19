@@ -1,6 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   experienceItems,
   navItems,
@@ -13,8 +13,7 @@ import { appTheme } from "./theme/appTheme";
 export default function App() {
   const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
   const heroPhotoUrl = `${import.meta.env.BASE_URL}aic.png`;
-  const aboutPhotoUrl = `${import.meta.env.BASE_URL}aic.jpg`;
-  const techStackScrollRef = useRef(null);
+  const aboutPhotoUrl = `${import.meta.env.BASE_URL}aic-fil.png`;
   const [activeProject, setActiveProject] = useState(null);
   const [modalImageIndex, setModalImageIndex] = useState(0);
   const [activeProjectSection, setActiveProjectSection] = useState("");
@@ -61,15 +60,6 @@ export default function App() {
     return () => window.clearInterval(modalTimer);
   }, [activeProject, currentModalImages.length]);
 
-  const handleTechStackWheel = (event) => {
-    const container = techStackScrollRef.current;
-    if (!container) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    container.scrollLeft += event.deltaY + event.deltaX;
-  };
-
   const handleOpenProjectModal = (project) => {
     setActiveProject(project);
     setActiveProjectSection(project.sections?.[0]?.key ?? "");
@@ -98,8 +88,6 @@ export default function App() {
         resumeUrl={resumeUrl}
         experienceItems={experienceItems}
         techStackItems={techStackItems}
-        techStackScrollRef={techStackScrollRef}
-        onTechStackWheel={handleTechStackWheel}
         projects={projects}
         projectImageIndexes={projectImageIndexes}
         onOpenProjectModal={handleOpenProjectModal}

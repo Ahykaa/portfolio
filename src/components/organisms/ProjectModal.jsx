@@ -1,5 +1,7 @@
 import {
   Box,
+  Chip,
+  Divider,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -116,25 +118,76 @@ export default function ProjectModal({
               </Stack>
             )}
             {currentModalSection?.bullets?.length > 0 && (
-              <Box
-                component="ul"
-                sx={{
-                  mt: 1.8,
-                  pl: 2.6,
-                  color: "text.secondary",
-                  lineHeight: 1.7,
-                }}
-              >
-                {currentModalSection.bullets.map((bullet) => (
-                  <Box component="li" key={bullet} sx={{ mb: 0.4 }}>
-                    {bullet}
-                  </Box>
-                ))}
-              </Box>
+              <Divider sx={{ mt: 2 }} />
             )}
-            <Typography sx={{ mt: 2, color: "text.secondary", lineHeight: 1.75 }}>
-              {activeProject.summary}
+
+            <Typography sx={{ mt: 2.1, fontWeight: 700, color: "#111827" }}>
+              Overview
             </Typography>
+            <Typography sx={{ mt: 0.8, color: "text.secondary", lineHeight: 1.75 }}>
+              {activeProject.overview ?? activeProject.summary}
+            </Typography>
+
+            {activeProject.techStack?.length > 0 && (
+              <>
+                <Typography sx={{ mt: 2, fontWeight: 700, color: "#111827" }}>
+                  Tech Stack
+                </Typography>
+                <Stack direction="row" spacing={0.8} useFlexGap flexWrap="wrap" sx={{ mt: 1 }}>
+                  {activeProject.techStack.map((tech) => (
+                    <Chip
+                      key={tech}
+                      label={tech}
+                      size="small"
+                      sx={{
+                        borderRadius: 999,
+                        bgcolor: "rgba(229,57,53,0.09)",
+                        color: "#7f1d1d",
+                        fontWeight: 600,
+                      }}
+                    />
+                  ))}
+                </Stack>
+              </>
+            )}
+
+            {(currentModalSection?.bullets?.length > 0 ||
+              activeProject.features?.length > 0) && (
+              <>
+                <Typography sx={{ mt: 2, fontWeight: 700, color: "#111827" }}>
+                  Key Features
+                </Typography>
+                <Box
+                  component="ul"
+                  sx={{
+                    mt: 0.8,
+                    pl: 2.6,
+                    color: "text.secondary",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {(currentModalSection?.bullets?.length > 0
+                    ? currentModalSection.bullets
+                    : activeProject.features
+                  ).map((bullet) => (
+                    <Box component="li" key={bullet} sx={{ mb: 0.4 }}>
+                      {bullet}
+                    </Box>
+                  ))}
+                </Box>
+              </>
+            )}
+
+            {activeProject.architectureSummary && (
+              <>
+                <Typography sx={{ mt: 2, fontWeight: 700, color: "#111827" }}>
+                  Architecture Summary
+                </Typography>
+                <Typography sx={{ mt: 0.8, color: "text.secondary", lineHeight: 1.75 }}>
+                  {activeProject.architectureSummary}
+                </Typography>
+              </>
+            )}
           </DialogContent>
         </>
       )}

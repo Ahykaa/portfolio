@@ -14,8 +14,6 @@ export default function PortfolioTemplate({
   resumeUrl,
   experienceItems,
   techStackItems,
-  techStackScrollRef,
-  onTechStackWheel,
   projects,
   projectImageIndexes,
   onOpenProjectModal,
@@ -33,7 +31,7 @@ export default function PortfolioTemplate({
     <Box sx={{ bgcolor: "background.default" }}>
       <FloatingNav navItems={navItems} />
       <MobileNavBar navItems={navItems} />
-      <HeroSection heroPhotoUrl={heroPhotoUrl} />
+      <HeroSection heroPhotoUrl={heroPhotoUrl} resumeUrl={resumeUrl} />
       <AboutSection
         resumeUrl={resumeUrl}
         aboutPhotoUrl={aboutPhotoUrl}
@@ -44,8 +42,6 @@ export default function PortfolioTemplate({
         projectImageIndexes={projectImageIndexes}
         onOpenProjectModal={onOpenProjectModal}
         techStackItems={techStackItems}
-        techStackScrollRef={techStackScrollRef}
-        onTechStackWheel={onTechStackWheel}
       />
       <ProjectModal
         activeProject={activeProject}
